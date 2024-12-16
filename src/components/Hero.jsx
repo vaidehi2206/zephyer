@@ -10,21 +10,25 @@ const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
-  const totalVideos = 4; 
+  const totalVideos = 3; // Adjust this to the actual number of videos
   const nextVideoRef = useRef(null);
   const currentVideoRef = useRef(null);
 
+  // Function to handle when a video has loaded
   const handleVideoLoad = () => {
     setLoadedVideos((prev) => prev + 1);
   };
 
+  // Set the next video index (with circular logic)
   const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
 
+  // Handle click on the mini video thumbnail
   const handleMiniVdClick = () => {
     setHasClicked(true);
     setCurrentIndex(upcomingVideoIndex);
   };
 
+  // GSAP animation for transitioning videos
   useGSAP(() => {
     if (hasClicked) {
       gsap.set("#next-video", { visibility: "visible" });
@@ -54,6 +58,7 @@ const Hero = () => {
     }
   }, { dependencies: [currentIndex], revertOnUpdate: true });
 
+  // GSAP animation for video frame on scroll
   useGSAP(() => {
     gsap.set('#video-frame', {
       clipPath: 'polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)',
@@ -73,11 +78,13 @@ const Hero = () => {
     });
   }, []);
 
+  // Get the video source based on the index
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
 
+  // Effect to track when all videos have loaded
   useEffect(() => {
     if (loadedVideos === totalVideos) {
-      setIsLoading(false); 
+      setIsLoading(false); // All videos have loaded, hide the loading spinner
     }
   }, [loadedVideos]);
 
@@ -95,7 +102,7 @@ const Hero = () => {
 
       <div id="video-frame" className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75">
         <div>
-
+          {/* Mini video thumbnail */}
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
             <div
               onClick={handleMiniVdClick}
@@ -114,6 +121,7 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* Full-screen next video */}
         <video
           ref={nextVideoRef}
           src={getVideoSrc(currentIndex)}
@@ -124,6 +132,7 @@ const Hero = () => {
           onLoadedData={handleVideoLoad}
         />
 
+        {/* Auto-playing background video */}
         <video
           src={getVideoSrc(currentIndex === totalVideos ? 1 : currentIndex)}
           autoPlay
