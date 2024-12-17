@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef } from 'react'
 
-const AnimatedTitle = ({ title, contianerClass }) => {
+const AnimatedTitle = ({ title, containerClass }) => {
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const AnimatedTitle = ({ title, contianerClass }) => {
             }); 
             titleAnimation.to('.animated-word', {
                 opacity: 1,
-                transform: 'translate3d90,0,0) rotateY(0deg) rotateX(0deg)',
+                transform: 'translate3d(0,0,0) rotateY(0deg) rotateX(0deg)',
                 ease: 'power2.inOut',
                 stagger: 0.02,
             })
