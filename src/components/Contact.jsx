@@ -6,7 +6,7 @@ import Button from './Button';
 const ImageClipBox = ({ src, clipClass }) => (
     <div className={clipClass}> {/* Apply the clipping class to the container */}
         <img 
-            src={src} {/* Image source passed as a prop */} 
+            src={src} 
         />
     </div>
 );
@@ -57,12 +57,10 @@ const Contact = () => {
                 <AnimatedTitle 
                     title="let&#39;s b<b>u</b>ild the <br /> new era of <br /> g<b>a</b>ming t<b>o</b>gether."
                     className="special-font !md:text-[6.2rem] w-full font-zentry !text-5xl !font-black !leading-[0.9]" // Custom styling for the animated title
-                    />
                 />
 
                 {/* Button for contacting */}
-                <Button title="contact us" containerClass="mt-10 cursor-pointer" />  // Styling for the button with spacing and pointer effect
-
+                <Button title="contact us" containerClass="mt-10 cursor-pointer" />  
             </div>
         </div>
     </div>
